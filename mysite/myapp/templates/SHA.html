@@ -1,0 +1,55 @@
+<!-- app_name/templates/app_name/index.html -->
+<!DOCTYPE html>
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<html>
+<head>
+    <title>SHA256 Hash Calculator</title>
+    <script>
+        function calculateHash() {
+            var text = document.getElementById("input-text").value;
+            var hashed_text = sha256(text);
+            document.getElementById("hash-output").textContent = hashed_text;
+        }
+
+        function sha256(str) {
+            var md = forge.md.sha256.create();
+            md.update(str);
+            return md.digest().toHex();
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"></script>
+</head>
+<body>
+    <div class="translucent-form-overlay" id="center">
+        <h1>Hello {{ current_user.username }}! Welcome to ZAP!</h1>
+        <h1>SHA256 Hash Calculator</h1>
+        <input type="text" id="input-text" placeholder="Enter text" oninput="calculateHash()">
+        <h3>Hashed Text:</h3>
+        <p id="hash-output"></p>
+    </div>
+    
+</body>
+</html>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!-- <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/myvue.js' %}"></script> -->
+{% endblock %}

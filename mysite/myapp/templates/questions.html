@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="translucent-form-overlay" id="center">
+    <div class="large-12 cell">
+        <h1>{{ title}} {{ msg }}!</h1>
+    </div>
+        {% if request.user.is_authenticated %}
+        <form action="/questions/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ q_form }}
+            <input class="button" type="Submit" value="Submit">
+        </form>
+        {% else %}
+        <h4>You must log in to ask a question!</h4>
+        {% endif %}
+        <hr>
+        <div id="question-list">
+            <div class="space" v-for="q in questions"> 
+                <div class="card-info"> <!--<div class="card-info alert"> -->
+                    <div class="card-info-content">
+                        {% verbatim %}<div class="lead">{{ q.question_text }}</div>{% endverbatim %}
+                        <img v-if="q.image" v-bind:src="q.image" v-bind:alt="q.image_description"/>
+                        {% verbatim %}<p>Asked by {{ q.author }} {{ q.pub_date }}</p>{% endverbatim %}
+                        <ul v-for="a in q.answers">
+                            {% verbatim %}<li>{{ a.answer_text }}</li>{% endverbatim %}
+                            <img v-if="a.image" v-bind:src="a.image" v-bind:alt="a.image_description"/>
+                            <p>{% verbatim %}Answered by {{ a.author }} {{ a.pub_date }}{% endverbatim %}
+                            <a class="button" id="right2" v-bind:href=" '/questions_answers_delete/' + a.id + '/' " v-if="author == a.author" onclick="return confirm('Are you sure you wish to delete your answer?')">Delete</a>
+                            </p>
+                        </ul>
+                        <a class="button expanded" id="lightgreen" v-bind:href=" '/answer/' + q.id +'/' ">Answer</a>
+                        <a class="button small expanded" id="right" v-bind:href=" '/questions_delete/' + q.id +'/' " v-if="author == q.author" onclick="return confirm('Are you sure you wish to delete your post?')">Delete Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/myvue.js' %}"></script>
+{% endblock %}

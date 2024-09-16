@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="translucent-form-overlay" id="center">
+    <div class="large-12 cell">
+        <h1>{{ title}} {{ msg }}!</h1>
+    </div>
+        {% if request.user.is_authenticated %}
+        <form action="/rants/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ r_form }}
+            <input class="button" type="Submit" value="Submit">
+        </form>
+        {% else %}
+        <h4>You must log in to ask a question!</h4>
+        {% endif %}
+        <hr>
+        <div id="rants-list">
+            <div class="space" v-for="r in rants"> 
+                <div class="card-info"> 
+                    <div class="card-info-content">
+                        {% verbatim %}<div class="lead">{{ r.question_text }}</div>{% endverbatim %}
+                        <img v-if="r.image" v-bind:src="r.image" v-bind:alt="r.image_description"/>
+                        {% verbatim %}<p>Asked by {{ r.author }} {{ r.pub_date }}</p>{% endverbatim %}
+                        <ul v-for="a in r.answers">
+                            {% verbatim %}<li>{{ a.answer_text }}</li>{% endverbatim %}
+                            <img v-if="a.image" v-bind:src="a.image" v-bind:alt="a.image_description"/>
+                            <p>{% verbatim %}Answered by {{ a.author }} {{ a.pub_date }}{% endverbatim %}
+                            <a class="button" id="right2" v-bind:href=" '/rants_answers_delete/' + a.id + '/' " v-if="author == a.author" onclick="return confirm('Are you sure you wish to delete your answer?')">Delete</a>
+                            </p>
+                        </ul>
+                        <a class="button expanded" id="lightgreen" v-bind:href=" '/rants_answer/' + r.id +'/' ">Answer</a>
+                        <a class="button small expanded" id="right" v-bind:href=" '/rants_delete/' + r.id +'/' " v-if="author == r.author" onclick="return confirm('Are you sure you wish to delete your post?')">Delete Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/rantsvue.js' %}"></script>
+{% endblock %}

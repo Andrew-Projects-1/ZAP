@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<!-- <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 medium-6 small-12 large-offset-4 medium-offset-3 cell">
+            <h1>Login</h1>
+            <form action="/login/" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Login" class="button expanded">
+                <a href="/register" class="secondary button expanded">Register</a>
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="translucent-form-overlay" id="TFO">
+    <h1>Login</h1>
+    <div class="row columns">
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Login" class="button expanded">
+            <a href="/register" class="secondary button expanded">Register</a>
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

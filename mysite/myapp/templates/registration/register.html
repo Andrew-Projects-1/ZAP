@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block content %}
+
+<div class="translucent-form-overlay" id="center">
+    <h1>Register</h1>
+    <div class="row columns"></div>
+        <form action="/register/" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <input type="submit" value="Register" class="button expanded">
+        </form>
+        <a href="/login/" class="button expanded">Cancel</a>
+    </div>
+</div>
+
+{% endblock %}

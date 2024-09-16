@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="translucent-form-overlay" id="center">
+    <h1>Hello {{ current_user.username }}! Welcome to ZAP!</h1>
+    <h4 class="indent">This site is dedicated to connecting gamers from around the world to share ideas about past, present, or new games as well as provide insight on what would make the gaming world a more enjoyable place!</h4>
+</div>
+
+
+
+
+
+<!-- HTML comment -->
+<!-- {# comment #}
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+            <h1>{{ title}} {{ msg }}!</h1>
+            <h1>Page number: {{ page }}</h1>
+            <h1>Hello {{ current_user.username }}! Welcome to ZAP!</h1>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-3 medium-3 cell">
+            {% if prev_page >= 0 %}
+            <a href="/{{ prev_page }}">Prev</a>
+            {% endif %}
+            <a href="/{{ next_page }}">Next</a>
+        </div>
+        <div class="large-3 medium-3 small-9 cell">
+            <ol>
+                {% for elem in page_list %}
+                <li>{{ elem }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="large-4 medium-3 small-12 cell">
+            <ul>
+                {% for num in squares_list %}
+                <li>{{ num }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% verbatim %}
+        <div class="large-3 medium-3 cell">
+            <div id="vue-examples">
+                <button class="button" @click="count++">
+                    Count is: {{ count }}
+                </button>
+                <hr>
+                <button @click="welcome = !welcome" class="button">
+                    Toggle
+                </button>
+                <h2 v-if="welcome">Welcome!</h2>
+                <h2 v-else>Goodbye!</h2>
+                <hr>
+                <button @click="big = !big" class="button">
+                    Press Me!
+                </button>
+                <h1 v-if="big">BIG</h2>
+                <h4 v-else>small</h2>
+            </div>
+            <hr>
+            <div id="list-example">
+                <li v-for="(item, index) in items">
+                    {{ index+1 }}: {{ item.message }}
+                </li>
+            </div>
+        </div>
+        {% endverbatim %}
+    </div>
+</div>
+
+<br><br><br><br> -->
+
+<!--
+<input type="text" id="currentDateTime">
+<script>
+  var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date+' '+time;
+  document.getElementById("currentDateTime").value = dateTime;
+</script>
+
+This is for trying to get updating time on website   -->
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!-- <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/myvue.js' %}"></script> -->
+{% endblock %}

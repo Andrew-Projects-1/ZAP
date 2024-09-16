@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Messaging Room
+{% endblock %}
+
+
+{% block content %}
+
+<div class="translucent-form-overlay" id="center">
+    <h1>Chat room: {{ room_name }}</h1>
+    <h5>Replying as {{ current_user.username }}</h5>
+    <div class="row columns"></div>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send" class="button expanded">
+    {{ room_name|json_script:"room-name" }}
+    <a href="/chatroom/" class="button expanded">Exit Chatroom</a>
+    <label for="onlineUsers">Online users</label>
+    <select multiple class="form-control" id="onlineUsersSelector">
+    </select>
+</div>
+<br><br>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'js/room.js' %}"></script>
+
+{% endblock %}

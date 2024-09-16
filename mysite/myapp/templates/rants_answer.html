@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Rants Answer
+{% endblock %}
+
+
+{% block content %}
+<div class="translucent-form-overlay" id="center">
+    <!-- <h1>Answer The Question</h1> -->
+    <h2>{{ quest.question_text }}</h2>
+    <h5>Asked by {{ quest.author }}</h5>
+    {% if quest.image %}
+        <img src="{{ quest.image.url }}"/>
+    {% endif %}
+    <br><br><br>
+    <div class="row columns"></div>
+        <form action="/rants_answer/{{ quest_id }}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit Answer" class="button expanded">
+        </form>
+        <button onclick="history.back()" class="button expanded">Cancel</button>
+    </div>
+</div>
+{% endblock %}
+
